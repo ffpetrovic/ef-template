@@ -1,0 +1,32 @@
+{
+  "name": "ef-template",
+  "version": "1.0.0",
+  "description": "Easy Front-end Template",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build",
+    "build:prod": "gulp build --env=prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/iTakeHome/ef-template.git"
+  },
+  "author": "Filip Petrovic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iTakeHome/ef-template/issues"
+  },
+  "homepage": "https://github.com/iTakeHome/ef-template#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "gulp-if": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "webpack-stream": "^4.0.0"
+  }
+}
