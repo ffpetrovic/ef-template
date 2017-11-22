@@ -7,12 +7,19 @@ module.exports = {
         filename: "bundle.js"
     },
     module: {
-        loaders: [{
-            exclude: /node_modules/,
-            loader: "babel-loader",
-            query: {
-                presets: ["env"]
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader",
+                query: {
+                    presets: ["env"]
+                }
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
-        }]
+        ]
     }
 };

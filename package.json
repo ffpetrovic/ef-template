@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "gulp",
+    "dev:prod": "gulp --env=prod",
     "build": "gulp build",
     "build:prod": "gulp build --env=prod"
   },
@@ -23,10 +24,18 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
+    "css-loader": "^0.28.7",
     "gulp-if": "^2.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0",
+    "gulp-uglifyes": "^0.1.2",
     "gulp-util": "^3.0.8",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.8",
     "webpack-stream": "^4.0.0"
+  },
+  "dependencies": {
+    "vue": "^2.5.8"
   }
 }
