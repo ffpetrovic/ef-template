@@ -25,8 +25,12 @@
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "css-loader": "^0.28.7",
+    "gulp-clean-css": "^3.9.0",
     "gulp-if": "^2.0.2",
+    "gulp-pug": "^3.3.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
     "gulp-uglifyes": "^0.1.2",
     "gulp-util": "^3.0.8",
     "node-sass": "^4.7.2",
@@ -36,6 +40,7 @@
     "webpack-stream": "^4.0.0"
   },
   "dependencies": {
+    "jquery": "^3.2.1",
     "vue": "^2.5.8"
   }
 }

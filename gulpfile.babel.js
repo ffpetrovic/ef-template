@@ -3,6 +3,11 @@ const gulpIf = require('gulp-if');
 const gutil = require('gulp-util');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglifyes');
+const sass          = require('gulp-sass');
+const sourcemaps    = require('gulp-sourcemaps');
+const minifyCss     = require('gulp-clean-css');
+const pug           = require('gulp-pug');
+
 
 const webpack = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
@@ -11,7 +16,7 @@ const webpackConfig = require('./webpack.config');
 const prod = gutil.env.env === 'prod' ? true : false;
 
 gulp.task('default', function() {
-    gulp.watch(['./src/js/**/*'], ['javascript']);
+    gulp.watch(['./src/js/**/*', './src/scss/**/*'], ['javascript', 'styles']);
 });
 
 gulp.task('javascript', () =>
@@ -26,5 +31,20 @@ gulp.task('javascript', () =>
 );
 
 gulp.task('styles', () =>
-    console.log('Test')
+    gulp.src('./src/scss/main.scss')
+        .pipe(gulpIf(prod, sourcemaps.init()))
+        .pipe(sass())
+        .pipe(gulpIf(prod,minifyCss()))
+        .pipe(gulpIf(prod, sourcemaps.write('.')))
+        /* .pipe(rename('styles.css')) */
+        .pipe(gulp.dest('./dist/css'))
+
+);
+
+gulp.task('templates', () =>
+    gulp.src('./src/pug/**/*')
+        .pipe(pug({
+            pretty: true
+        }))
+        .pipe(gulp.dest('./dist/'))
 );
