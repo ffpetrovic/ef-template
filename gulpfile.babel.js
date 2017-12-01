@@ -8,15 +8,24 @@ const sourcemaps    = require('gulp-sourcemaps');
 const minifyCss     = require('gulp-clean-css');
 const pug           = require('gulp-pug');
 
-
 const webpack = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
 
-
 const prod = gutil.env.env === 'prod' ? true : false;
 
+const watchList = [
+    './src/js/**/*', 
+    './src/scss/**/*',
+    './src/pug/**/*'
+];
+const taskList = [
+    'javascript', 
+    'styles',
+    'template'
+];
+
 gulp.task('default', function() {
-    gulp.watch(['./src/js/**/*', './src/scss/**/*'], ['javascript', 'styles']);
+    gulp.watch(watchList, taskList);
 });
 
 gulp.task('javascript', () =>
@@ -41,7 +50,7 @@ gulp.task('styles', () =>
 
 );
 
-gulp.task('templates', () =>
+gulp.task('template', () =>
     gulp.src('./src/pug/**/*')
         .pipe(pug({
             pretty: true
