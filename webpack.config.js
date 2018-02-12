@@ -1,4 +1,5 @@
 const path = require('path');
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
     output: {
@@ -21,5 +22,8 @@ module.exports = {
                 loader: 'vue-loader'
             }
         ]
-    }
+	},
+	plugins: [
+		new HardSourceWebpackPlugin()
+	]
 };
