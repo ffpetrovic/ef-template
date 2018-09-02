@@ -1,39 +1,41 @@
 const path = require('path');
 // var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const extractSass = new ExtractTextPlugin({
-    filename: "styles.css",
-    disable: process.env.NODE_ENV === "development"
-});
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
 	entry: './src/js/scripts.js',
-    output: {
-        publicPath: "",
-        path: path.join(__dirname, "/dist/js/"),
-        filename: "bundle.js"
+	output: {
+		publicPath: "dist/js",
+		path: path.join(__dirname, "dist/js/"),
+		filename: "bundle.js"
 	},
-	watch: true,
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: "babel-loader", 
-                options: {
-                    presets: ["env"]
-                }
+	mode: devMode ? 'development' : 'production',
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader", 
+				options: {
+					presets: ["env"]
+				}
 			},
 			{
-				test: /\.scss$/,
-				use: ExtractTextPlugin.extract({
-					use: ['css-loader?url=false', 'sass-loader']
-				})
+				test: /\.(sa|sc|c)ss$/,
+				use: [
+					{ loader: MiniCssExtractPlugin.loader, 
+						options: {
+							publicPath: '../css'
+						}
+					},
+					'css-loader',
+					'sass-loader',
+				],
 			},
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
+			{
+				test: /\.vue$/,
+				loader: 'vue-loader'
 			},
 			{
 				test: /\.pug$/,
@@ -44,7 +46,10 @@ module.exports = {
 					"pug-html-loader"
 				]
 			}
-        ]
+		]
+	},
+	devServer: {
+		publicPath: "/js"
 	},
 	resolve: {
 		alias: {
@@ -52,36 +57,10 @@ module.exports = {
 		}
 	},
 	plugins: [
-		new ExtractTextPlugin('../css/main.css')
+		new MiniCssExtractPlugin({
+			// Options similar to the same options in webpackOptions.output
+			// both options are optional
+			filename: "../css/[name].css"
+		})
 	]
 };
-
-// const path = require('path');
-// var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
-
-// module.exports = {
-//     output: {
-//         publicPath: "./dist/",
-//         path: path.join(__dirname, "/js/"),
-//         filename: "bundle.js"
-//     },
-//     module: {
-//         loaders: [
-//             {
-//                 test: /\.js$/,
-//                 exclude: /node_modules/,
-//                 loader: "babel-loader",
-//                 query: {
-//                     presets: ["env"]
-//                 }
-//             },
-//             {
-//                 test: /\.vue$/,
-//                 loader: 'vue-loader'
-//             }
-//         ]
-// 	},
-// 	plugins: [
-// 		new HardSourceWebpackPlugin()
-// 	]
-// };
